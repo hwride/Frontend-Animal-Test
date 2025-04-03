@@ -1,14 +1,21 @@
-import "./animals.css";
-import { Animal } from "../components/Animal.tsx";
+import { loadAnimals } from "../utils/storage-utils.ts";
 
 export function Animals() {
+  const animals = loadAnimals();
+
   return (
     <div className="animal-page">
+      <h1>Your Animals</h1>
+      <ul>
+        {animals.map((animal) => (
+          <li key={animal.id}>
+            <a href={`/animal/${animal.id}`}>
+              {animal.name} (a {animal.type})
+            </a>
+          </li>
+        ))}
+      </ul>
       <a href="/add-animal">Add Animal</a>
-
-      <div className="animal-wrapper">
-        <Animal />
-      </div>
     </div>
   );
 }

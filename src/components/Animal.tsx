@@ -1,20 +1,27 @@
-export function Animal() {
+import "./Animal.css";
+import { AnimalType } from "../types/AnimalType.ts";
+
+export function Animal({
+  type,
+  name,
+  imgSrc,
+  imgAlt,
+  hunger,
+  happiness,
+  sleep,
+}: AnimalType) {
   return (
     <>
       <div className="animal-container">
-        <h1>Poodle</h1>
+        <h1>{type}</h1>
         <div className="animal-animal">
-          <img
-            src="src/poodle.svg"
-            alt="Your animal"
-            className="animal-image"
-          />
-          <h2>Animal Name</h2>
+          <img src={imgSrc} alt={imgAlt} className="animal-image" />
+          <h2>{name}</h2>
         </div>
         <div className="animal-stats">
-          <Stat label="Hunger" buttonLabel="Feed" value={60} />
-          <Stat label="Happiness" buttonLabel="Play" value={80} />
-          <Stat label="Sleep" buttonLabel="Rest" value={50} />
+          <Stat label="Hunger" buttonLabel="Feed" value={hunger} />
+          <Stat label="Happiness" buttonLabel="Play" value={happiness} />
+          <Stat label="Sleep" buttonLabel="Rest" value={sleep} />
         </div>
       </div>
     </>

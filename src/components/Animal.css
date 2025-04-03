@@ -1,7 +1,3 @@
-.animal-page > button {
-  margin: 20px;
-}
-
 .animal-wrapper {
   display: flex;
   flex-wrap: wrap;
