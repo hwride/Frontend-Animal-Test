@@ -12,29 +12,31 @@ export function Animal() {
           <h2>Animal Name</h2>
         </div>
         <div className="animal-stats">
-          <div className="stat">
-            <strong>Hunger:</strong>
-            <div className="meter">
-              <div className="meter-fill" style={{ width: "60%" }}></div>
-            </div>
-            <button className="action-button">Feed</button>
-          </div>
-          <div className="stat">
-            <strong>Happiness:</strong>
-            <div className="meter">
-              <div className="meter-fill" style={{ width: "80%" }}></div>
-            </div>
-            <button className="action-button">Play</button>
-          </div>
-          <div className="stat">
-            <strong>Sleep:</strong>
-            <div className="meter">
-              <div className="meter-fill" style={{ width: "50%" }}></div>
-            </div>
-            <button className="action-button">Rest</button>
-          </div>
+          <Stat label="Hunger" buttonLabel="Feed" value={60} />
+          <Stat label="Happiness" buttonLabel="Play" value={80} />
+          <Stat label="Sleep" buttonLabel="Rest" value={50} />
         </div>
       </div>
     </>
+  );
+}
+
+function Stat({
+  label,
+  buttonLabel,
+  value,
+}: {
+  label: string;
+  buttonLabel: string;
+  value: number;
+}) {
+  return (
+    <div className="stat">
+      <strong>{label}</strong>
+      <div className="meter">
+        <div className="meter-fill" style={{ width: `${value}%` }}></div>
+      </div>
+      <button className="action-button">{buttonLabel}</button>
+    </div>
   );
 }
