@@ -1,6 +1,6 @@
 import { Animal } from "../components/Animal.tsx";
 import { useNavigate, useParams } from "react-router";
-import { loadAnimalById } from "../utils/animal-store.ts";
+import { loadAnimalById, saveAnimal } from "../utils/animal-store.ts";
 import { useEffect, useState } from "react";
 import { AnimalData } from "../types/AnimalData.ts";
 import { Page } from "../components/Page.tsx";
@@ -23,12 +23,25 @@ export function AnimalPage() {
     }
   }, [id, navigate]);
 
+  const updateStat = (
+    key: keyof Pick<AnimalData, "hunger" | "happiness" | "sleep">,
+    delta: number,
+  ) => {
+    if (!animal) return;
+    const updated = {
+      ...animal,
+      [key]: Math.max(0, Math.min(100, animal[key] + delta)),
+    };
+    saveAnimal(updated);
+    setAnimal(updated);
+  };
+
   if (!animal) return null;
 
   return (
     <Page>
       <div className="flex flex-wrap justify-center gap-5">
-        <Animal {...animal} />
+        <Animal {...animal} onStatChange={updateStat} />
       </div>
     </Page>
   );
