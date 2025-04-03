@@ -1,11 +1,12 @@
 import { loadAnimals } from "../utils/animal-store.ts";
 import { Anchor } from "../components/Anchor.tsx";
+import { Page } from "../components/Page.tsx";
 
 export function Animals() {
   const animals = loadAnimals();
 
   return (
-    <div className="animal-page">
+    <Page>
       <h1>Your Animals</h1>
       <ul className="mb-2 list-disc">
         {animals.map((animal) => (
@@ -19,6 +20,6 @@ export function Animals() {
       <Anchor href="/add-animal" variant="button">
         Add Animal
       </Anchor>
-    </div>
+    </Page>
   );
 }

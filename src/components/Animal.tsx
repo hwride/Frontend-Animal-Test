@@ -11,14 +11,14 @@ export function Animal({
   return (
     <>
       <div className="mx-auto my-5 w-[350px] rounded border border-gray-300 bg-gray-100 p-5 text-center text-blue-500">
-        <h1>{label}</h1>
+        <h1>{name}</h1>
         <div className="mx-auto mb-5 w-fit">
           <img
             src={imgSrc}
             alt={imgAlt}
             className="h-[150px] w-[150px] rounded-full object-cover"
           />
-          <h2>{name}</h2>
+          <h2>{label}</h2>
         </div>
         <div className="mt-5 flex">
           <Stat label="Hunger" buttonLabel="Feed" value={hunger} />

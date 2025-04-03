@@ -5,6 +5,7 @@ import { saveAnimal } from "../utils/animal-store.ts";
 import { animalsTypes, defaultStats } from "../config/config.ts";
 import * as React from "react";
 import { Button } from "../components/Button.tsx";
+import { Page } from "../components/Page.tsx";
 
 export function AddAnimal() {
   const navigate = useNavigate();
@@ -35,7 +36,7 @@ export function AddAnimal() {
   };
 
   return (
-    <div>
+    <Page>
       <h1>Add Animal</h1>
       <form onSubmit={handleSubmit} className="w-full max-w-lg">
         <div>
@@ -65,6 +66,6 @@ export function AddAnimal() {
 
         <Button type="submit">Add Animal</Button>
       </form>
-    </div>
+    </Page>
   );
 }
