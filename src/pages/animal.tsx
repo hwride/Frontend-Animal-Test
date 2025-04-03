@@ -1,14 +1,14 @@
 import "./animal.css";
 import { Animal } from "../components/Animal.tsx";
 import { useNavigate, useParams } from "react-router";
-import { loadAnimalById } from "../utils/storage-utils.ts";
+import { loadAnimalById } from "../utils/animal-store.ts";
 import { useEffect, useState } from "react";
-import { AnimalType } from "../types/AnimalType.ts";
+import { AnimalData } from "../types/AnimalData.ts";
 
 export function AnimalPage() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const [animal, setAnimal] = useState<AnimalType | null>(null);
+  const [animal, setAnimal] = useState<AnimalData | null>(null);
 
   useEffect(() => {
     if (id == null) {

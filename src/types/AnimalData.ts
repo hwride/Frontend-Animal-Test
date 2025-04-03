@@ -1,9 +1,14 @@
 export type AnimalType = {
-  id: string;
-  type: string;
-  name: string;
+  typeId: string;
+  label: string;
   imgSrc: string;
   imgAlt: string;
+};
+
+export type AnimalData = {
+  id: string;
+  type: AnimalType;
+  name: string;
   hunger: number;
   happiness: number;
   sleep: number;

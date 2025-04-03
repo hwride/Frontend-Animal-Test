@@ -1,4 +1,4 @@
-import { loadAnimals } from "../utils/storage-utils.ts";
+import { loadAnimals } from "../utils/animal-store.ts";
 
 export function Animals() {
   const animals = loadAnimals();
@@ -10,7 +10,7 @@ export function Animals() {
         {animals.map((animal) => (
           <li key={animal.id}>
             <a href={`/animal/${animal.id}`}>
-              {animal.name} (a {animal.type})
+              {animal.name} (a {animal.type.label})
             </a>
           </li>
         ))}

@@ -1,19 +1,17 @@
 import "./Animal.css";
-import { AnimalType } from "../types/AnimalType.ts";
+import { AnimalData } from "../types/AnimalData.ts";
 
 export function Animal({
-  type,
+  type: { label, imgSrc, imgAlt },
   name,
-  imgSrc,
-  imgAlt,
   hunger,
   happiness,
   sleep,
-}: AnimalType) {
+}: AnimalData) {
   return (
     <>
       <div className="animal-container">
-        <h1>{type}</h1>
+        <h1>{label}</h1>
         <div className="animal-animal">
           <img src={imgSrc} alt={imgAlt} className="animal-image" />
           <h2>{name}</h2>
