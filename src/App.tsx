@@ -1,15 +1,16 @@
 import "./App.css";
-import { Animal } from "./components/Animal.tsx";
+import { BrowserRouter, Route, Routes } from "react-router";
+import { Animals } from "./pages/animals.tsx";
+import { AddAnimal } from "./pages/add-animal.tsx";
 
 function App() {
   return (
-    <div className="animal-page">
-      <button>Add Animal</button>
-
-      <div className="animal-wrapper">
-        <Animal />
-      </div>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Animals />} />
+        <Route path="/add-animal" element={<AddAnimal />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
