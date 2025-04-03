@@ -1,5 +1,5 @@
-import "./Animal.css";
 import { AnimalData } from "../types/AnimalData.ts";
+import { Button } from "./Button.tsx";
 
 export function Animal({
   type: { label, imgSrc, imgAlt },
@@ -10,13 +10,17 @@ export function Animal({
 }: AnimalData) {
   return (
     <>
-      <div className="animal-container">
+      <div className="mx-auto my-5 w-[350px] rounded border border-gray-300 bg-gray-100 p-5 text-center text-blue-500">
         <h1>{label}</h1>
-        <div className="animal-animal">
-          <img src={imgSrc} alt={imgAlt} className="animal-image" />
+        <div className="mx-auto mb-5 w-fit">
+          <img
+            src={imgSrc}
+            alt={imgAlt}
+            className="h-[150px] w-[150px] rounded-full object-cover"
+          />
           <h2>{name}</h2>
         </div>
-        <div className="animal-stats">
+        <div className="mt-5 flex">
           <Stat label="Hunger" buttonLabel="Feed" value={hunger} />
           <Stat label="Happiness" buttonLabel="Play" value={happiness} />
           <Stat label="Sleep" buttonLabel="Rest" value={sleep} />
@@ -36,12 +40,15 @@ function Stat({
   value: number;
 }) {
   return (
-    <div className="stat">
+    <div className="mb-5 flex-1 p-2.5">
       <strong>{label}</strong>
-      <div className="meter">
-        <div className="meter-fill" style={{ width: `${value}%` }}></div>
+      <div className="mt-2.5 h-5 w-full overflow-hidden rounded bg-gray-300">
+        <div
+          className="h-full bg-green-500 transition-all duration-300 ease-in-out"
+          style={{ width: `${value}%` }}
+        ></div>
       </div>
-      <button className="action-button">{buttonLabel}</button>
+      <Button>{buttonLabel}</Button>
     </div>
   );
 }

@@ -1,9 +1,9 @@
-import "./animal.css";
 import { Animal } from "../components/Animal.tsx";
 import { useNavigate, useParams } from "react-router";
 import { loadAnimalById } from "../utils/animal-store.ts";
 import { useEffect, useState } from "react";
 import { AnimalData } from "../types/AnimalData.ts";
+import { Anchor } from "../components/Anchor.tsx";
 
 export function AnimalPage() {
   const { id } = useParams();
@@ -27,9 +27,9 @@ export function AnimalPage() {
 
   return (
     <div className="animal-page">
-      <a href="/add-animal">Add Animal</a>
+      <Anchor href="/add-animal">Add Animal</Anchor>
 
-      <div className="animal-wrapper">
+      <div className="flex flex-wrap justify-center gap-5">
         <Animal {...animal} />
       </div>
     </div>

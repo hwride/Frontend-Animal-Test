@@ -4,6 +4,7 @@ import { useState } from "react";
 import { saveAnimal } from "../utils/animal-store.ts";
 import { animalsTypes, defaultStats } from "../config/config.ts";
 import * as React from "react";
+import { Button } from "../components/Button.tsx";
 
 export function AddAnimal() {
   const navigate = useNavigate();
@@ -36,13 +37,14 @@ export function AddAnimal() {
   return (
     <div>
       <h1>Add Animal</h1>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="w-full max-w-lg">
         <div>
           <label htmlFor="type">Type</label>
           <select
             id="type"
             value={typeId}
             onChange={(e) => setTypeId(e.target.value)}
+            className="block w-full appearance-none rounded border border-gray-200 bg-gray-200 px-4 py-3 pr-8 leading-tight text-gray-700 focus:border-gray-500 focus:bg-white focus:outline-none"
           >
             {animalsTypes.map((animal) => (
               <option value={animal.typeId}>{animal.label}</option>
@@ -57,10 +59,11 @@ export function AddAnimal() {
             value={name}
             onChange={(e) => setName(e.target.value)}
             required
+            className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
           />
         </div>
 
-        <button type="submit">Add Animal</button>
+        <Button type="submit">Add Animal</Button>
       </form>
     </div>
   );
