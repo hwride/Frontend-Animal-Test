@@ -38,9 +38,9 @@ export const animalsTypes: AnimalType[] = [
     label: "Poodle",
     imgSrc: "/src/poodle.svg",
     imgAlt: "A cartoon poodle",
-    decayHappinessRateMs: 100,
-    decayHungerRateMs: 200,
-    decaySleepRateMs: 300,
+    decayHappinessRateMs: 500,
+    decayHungerRateMs: 750,
+    decaySleepRateMs: 1000,
   },
 ];
 
