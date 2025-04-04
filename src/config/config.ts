@@ -25,7 +25,7 @@ export const statConfig: Record<
     decayType: "increase",
     boostValue: -10,
   },
-  sleep: {
+  sleepiness: {
     defaultValue: 50,
     decayType: "increase",
     boostValue: -10,

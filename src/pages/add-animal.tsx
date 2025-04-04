@@ -27,7 +27,7 @@ export function AddAnimal() {
     const newAnimal: AnimalData = {
       hunger: statConfig.hunger.defaultValue,
       happiness: statConfig.happiness.defaultValue,
-      sleep: statConfig.sleep.defaultValue,
+      sleepiness: statConfig.sleepiness.defaultValue,
       id: crypto.randomUUID(),
       name,
       type: animalType,

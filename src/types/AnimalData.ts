@@ -1,4 +1,4 @@
-export type StatName = "hunger" | "happiness" | "sleep";
+export type StatName = "hunger" | "happiness" | "sleepiness";
 
 export type AnimalType = {
   typeId: string;
@@ -16,6 +16,6 @@ export type AnimalData = {
   name: string;
   hunger: number;
   happiness: number;
-  sleep: number;
+  sleepiness: number;
   lastUpdated: Date;
 };

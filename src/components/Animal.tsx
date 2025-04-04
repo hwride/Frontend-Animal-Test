@@ -10,7 +10,7 @@ export function Animal({
   name,
   hunger,
   happiness,
-  sleep,
+  sleepiness,
   onBoostStat,
 }: AnimalProps) {
   return (
@@ -39,10 +39,10 @@ export function Animal({
             onClick={() => onBoostStat("happiness")}
           />
           <Stat
-            label="Sleep"
+            label="Sleepiness"
             buttonLabel="Rest"
-            value={sleep}
-            onClick={() => onBoostStat("sleep")}
+            value={sleepiness}
+            onClick={() => onBoostStat("sleepiness")}
           />
         </div>
       </div>
