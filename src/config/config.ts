@@ -36,11 +36,30 @@ export const animalsTypes: AnimalType[] = [
   {
     typeId: "poodle",
     label: "Poodle",
-    imgSrc: "/src/poodle.svg",
+    imgSrc: "/svg/poodle.svg",
     imgAlt: "A cartoon poodle",
     decayHappinessRateMs: 500,
     decayHungerRateMs: 750,
     decaySleepRateMs: 1000,
+  },
+  {
+    typeId: "fox",
+    label: "Fox",
+    imgSrc: "/svg/fox.svg",
+    imgAlt: "A cartoon fox",
+    decayHappinessRateMs: 1000,
+    decayHungerRateMs: 400,
+    decaySleepRateMs: 100,
+  },
+  {
+    typeId: "turtle",
+    label: "Turtle",
+    imgSrc: "/svg/turtle.svg",
+    imgAlt: "A cartoon turtle",
+    // Turtles are slow...
+    decayHappinessRateMs: 2000,
+    decayHungerRateMs: 1500,
+    decaySleepRateMs: 3000,
   },
 ];
 
