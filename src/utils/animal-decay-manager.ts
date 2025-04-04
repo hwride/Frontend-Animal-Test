@@ -21,11 +21,23 @@ export function updateAnimalDecay(animal: AnimalData): AnimalData {
   const currentTime = new Date();
   const msSinceLastUpdate =
     currentTime.getTime() - animal.lastUpdated.getTime();
+
+  // Update how quickly happiness decreases if hunger or sleep are full.
+  let finalDecayHappinessRateMs = animal.type.decayHappinessRateMs;
+  const isHungerFull = animal.hunger === maxStatValue;
+  if (isHungerFull) {
+    finalDecayHappinessRateMs /= 2;
+  }
+  const isSleepFull = animal.sleep === maxStatValue;
+  if (isSleepFull) {
+    finalDecayHappinessRateMs /= 2;
+  }
+
   return {
     ...animal,
     happiness: updateStatDecay({
       currentStat: animal.happiness,
-      statDecayRate: animal.type.decayHappinessRateMs,
+      statDecayRate: finalDecayHappinessRateMs,
       decayType: statConfig.happiness.decayType,
       msSinceLastUpdate,
     }),
