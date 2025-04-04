@@ -3,6 +3,9 @@ export type AnimalType = {
   label: string;
   imgSrc: string;
   imgAlt: string;
+  decayHungerRateMs: number;
+  decayHappinessRateMs: number;
+  decaySleepRateMs: number;
 };
 
 export type AnimalData = {

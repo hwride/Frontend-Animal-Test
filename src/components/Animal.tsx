@@ -45,7 +45,7 @@ export function Animal({
             label="Sleep"
             buttonLabel="Rest"
             value={sleep}
-            onClick={() => onStatChange("sleep", 10)}
+            onClick={() => onStatChange("sleep", -10)}
           />
         </div>
       </div>

@@ -4,6 +4,8 @@ import { loadAnimalById, saveAnimal } from "../utils/animal-store.ts";
 import { useEffect, useState } from "react";
 import { AnimalData } from "../types/AnimalData.ts";
 import { Page } from "../components/Page.tsx";
+import { updateAnimalDecay } from "../utils/animal-decay-manager.ts";
+import { maxStatValue } from "../config/config.ts";
 
 export function AnimalPage() {
   const { id } = useParams();
@@ -18,7 +20,10 @@ export function AnimalPage() {
       if (animal == null) {
         navigate("/");
       } else {
-        setAnimal(animal);
+        // Update stat decay on the animal after load.
+        const updatedAnimal = updateAnimalDecay(animal);
+        const savedAnimal = saveAnimal(updatedAnimal);
+        setAnimal(savedAnimal);
       }
     }
   }, [id, navigate]);
@@ -30,7 +35,7 @@ export function AnimalPage() {
     if (!animal) return;
     const updated = {
       ...animal,
-      [key]: Math.max(0, Math.min(100, animal[key] + delta)),
+      [key]: Math.max(0, Math.min(maxStatValue, animal[key] + delta)),
     };
     saveAnimal(updated);
     setAnimal(updated);
