@@ -26,7 +26,7 @@ export function AnimalPage() {
         // Update stat decay on the animal after load.
         const updatedAnimal = updateAnimalDecay(animal);
         const savedAnimal = saveAnimal(updatedAnimal);
-        console.log({
+        console.log("On load", {
           beforeUpdate: animal,
           afterUpdate: updatedAnimal,
           afterSave: savedAnimal,
@@ -37,11 +37,16 @@ export function AnimalPage() {
         let timeoutId: ReturnType<typeof setTimeout>;
         const scheduleDecay = () => {
           timeoutId = setTimeout(() => {
-            setAnimal((current) => {
-              if (!current) return current;
-              const decayed = updateAnimalDecay(current);
-              const saved = saveAnimal(decayed);
-              return saved;
+            setAnimal((animal) => {
+              if (!animal) return animal;
+              const updatedAnimal = updateAnimalDecay(animal);
+              const savedAnimal = saveAnimal(updatedAnimal);
+              console.log("After timer", {
+                beforeUpdate: animal,
+                afterUpdate: updatedAnimal,
+                afterSave: savedAnimal,
+              });
+              return savedAnimal;
             });
             scheduleDecay();
           }, statUpdateIntervalMs);
