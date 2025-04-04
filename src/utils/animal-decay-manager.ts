@@ -1,21 +1,49 @@
 import { AnimalData } from "../types/AnimalData.ts";
-import { maxStatValue } from "../config/config.ts";
+import { StatDecayType, maxStatValue, statConfig } from "../config/config.ts";
 
 export function updateAnimalDecay(animal: AnimalData): AnimalData {
   const currentTime = new Date();
   const msSinceLastUpdate =
     currentTime.getTime() - animal.lastUpdated.getTime();
-  const { decayHappinessRateMs, decayHungerRateMs, decaySleepRateMs } =
-    animal.type;
-  const happinessDecay = msSinceLastUpdate / decayHappinessRateMs;
-  const sleepDecay = msSinceLastUpdate / decaySleepRateMs;
-  const hungerDecay = msSinceLastUpdate / decayHungerRateMs;
-
   return {
     ...animal,
-    // Ensure stats can't go below min or above max as appropriate.
-    happiness: Math.round(Math.max(0, animal.happiness - happinessDecay)),
-    sleep: Math.round(Math.min(maxStatValue, animal.sleep + sleepDecay)),
-    hunger: Math.round(Math.min(maxStatValue, animal.hunger + hungerDecay)),
+    happiness: updateStatDecay({
+      currentStat: animal.happiness,
+      statDecayRate: animal.type.decayHappinessRateMs,
+      decayType: statConfig.happiness.decayType,
+      msSinceLastUpdate,
+    }),
+    sleep: updateStatDecay({
+      currentStat: animal.sleep,
+      statDecayRate: animal.type.decaySleepRateMs,
+      decayType: statConfig.sleep.decayType,
+      msSinceLastUpdate,
+    }),
+    hunger: updateStatDecay({
+      currentStat: animal.hunger,
+      statDecayRate: animal.type.decayHungerRateMs,
+      decayType: statConfig.hunger.decayType,
+      msSinceLastUpdate,
+    }),
   };
+}
+
+function updateStatDecay({
+  currentStat,
+  statDecayRate,
+  decayType,
+  msSinceLastUpdate,
+}: {
+  currentStat: number;
+  statDecayRate: number;
+  decayType: StatDecayType;
+  msSinceLastUpdate: number;
+}) {
+  // Ensure stats can't go below min or above max as appropriate.
+  const statDecay = msSinceLastUpdate / statDecayRate;
+  if (decayType === "reduce") {
+    return Math.round(Math.max(0, currentStat - statDecay));
+  } else {
+    return Math.round(Math.min(maxStatValue, currentStat + statDecay));
+  }
 }

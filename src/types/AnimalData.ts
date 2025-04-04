@@ -1,3 +1,5 @@
+export type StatName = "hunger" | "happiness" | "sleep";
+
 export type AnimalType = {
   typeId: string;
   label: string;

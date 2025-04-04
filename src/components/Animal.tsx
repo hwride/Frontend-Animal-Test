@@ -1,11 +1,9 @@
-import { AnimalData } from "../types/AnimalData.ts";
+import { AnimalData, StatName } from "../types/AnimalData.ts";
 import { Button } from "./Button.tsx";
+import { statConfig } from "../config/config.ts";
 
 type AnimalProps = AnimalData & {
-  onStatChange: (
-    key: keyof Pick<AnimalData, "hunger" | "happiness" | "sleep">,
-    delta: number,
-  ) => void;
+  onStatChange: (key: StatName, delta: number) => void;
 };
 
 export function Animal({
@@ -33,19 +31,21 @@ export function Animal({
             label="Hunger"
             buttonLabel="Feed"
             value={hunger}
-            onClick={() => onStatChange("hunger", -10)}
+            onClick={() => onStatChange("hunger", statConfig.hunger.boostValue)}
           />
           <Stat
             label="Happiness"
             buttonLabel="Play"
             value={happiness}
-            onClick={() => onStatChange("happiness", 10)}
+            onClick={() =>
+              onStatChange("happiness", statConfig.happiness.boostValue)
+            }
           />
           <Stat
             label="Sleep"
             buttonLabel="Rest"
             value={sleep}
-            onClick={() => onStatChange("sleep", -10)}
+            onClick={() => onStatChange("sleep", statConfig.sleep.boostValue)}
           />
         </div>
       </div>

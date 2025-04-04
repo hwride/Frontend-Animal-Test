@@ -1,9 +1,9 @@
 import { AnimalData } from "../types/AnimalData.ts";
 import { useNavigate } from "react-router";
+import * as React from "react";
 import { useState } from "react";
 import { saveAnimal } from "../utils/animal-store.ts";
-import { animalsTypes, defaultStats } from "../config/config.ts";
-import * as React from "react";
+import { animalsTypes, statConfig } from "../config/config.ts";
 import { Button } from "../components/Button.tsx";
 import { Page } from "../components/Page.tsx";
 
@@ -25,10 +25,13 @@ export function AddAnimal() {
       );
     }
     const newAnimal: AnimalData = {
-      ...defaultStats,
+      hunger: statConfig.hunger.defaultValue,
+      happiness: statConfig.happiness.defaultValue,
+      sleep: statConfig.sleep.defaultValue,
       id: crypto.randomUUID(),
       name,
       type: animalType,
+      lastUpdated: new Date(),
     };
 
     saveAnimal(newAnimal);
