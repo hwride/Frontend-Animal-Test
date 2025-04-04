@@ -7,7 +7,7 @@ import { Page } from "../components/Page.tsx";
 import {
   boostAnimalStat,
   updateAnimalDecay,
-} from "../utils/animal-decay-manager.ts";
+} from "../utils/animal-stat-manager.ts";
 import { statUpdateIntervalMs } from "../config/config.ts";
 
 export function AnimalPage() {
