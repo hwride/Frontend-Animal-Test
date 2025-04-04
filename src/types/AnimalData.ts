@@ -12,4 +12,5 @@ export type AnimalData = {
   hunger: number;
   happiness: number;
   sleep: number;
+  lastUpdated: Date;
 };
