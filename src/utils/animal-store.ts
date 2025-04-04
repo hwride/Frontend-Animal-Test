@@ -9,7 +9,6 @@ type AnimalStoreData = Omit<AnimalData, "type" | "lastUpdated"> & {
 export function loadAnimals(): AnimalData[] {
   const json = localStorage.getItem(storageKey);
   const animalStoreData = json ? (JSON.parse(json) as AnimalStoreData[]) : [];
-  console.log("animalStoreData: ", animalStoreData);
 
   // Convert animals from format we put in localStorage to app format.
   const animalData: AnimalData[] = [];

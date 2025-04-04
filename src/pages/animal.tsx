@@ -2,10 +2,13 @@ import { Animal } from "../components/Animal.tsx";
 import { useNavigate, useParams } from "react-router";
 import { loadAnimalById, saveAnimal } from "../utils/animal-store.ts";
 import { useEffect, useState } from "react";
-import { AnimalData } from "../types/AnimalData.ts";
+import { AnimalData, StatName } from "../types/AnimalData.ts";
 import { Page } from "../components/Page.tsx";
-import { updateAnimalDecay } from "../utils/animal-decay-manager.ts";
-import { maxStatValue } from "../config/config.ts";
+import {
+  boostAnimalStat,
+  updateAnimalDecay,
+} from "../utils/animal-decay-manager.ts";
+import { statUpdateIntervalMs } from "../config/config.ts";
 
 export function AnimalPage() {
   const { id } = useParams();
@@ -23,22 +26,37 @@ export function AnimalPage() {
         // Update stat decay on the animal after load.
         const updatedAnimal = updateAnimalDecay(animal);
         const savedAnimal = saveAnimal(updatedAnimal);
+        console.log({
+          beforeUpdate: animal,
+          afterUpdate: updatedAnimal,
+          afterSave: savedAnimal,
+        });
         setAnimal(savedAnimal);
+
+        // Setup timer to update stat decay live.
+        let timeoutId: ReturnType<typeof setTimeout>;
+        const scheduleDecay = () => {
+          timeoutId = setTimeout(() => {
+            setAnimal((current) => {
+              if (!current) return current;
+              const decayed = updateAnimalDecay(current);
+              const saved = saveAnimal(decayed);
+              return saved;
+            });
+            scheduleDecay();
+          }, statUpdateIntervalMs);
+        };
+        scheduleDecay();
+        return () => clearTimeout(timeoutId);
       }
     }
   }, [id, navigate]);
 
-  const updateStat = (
-    key: keyof Pick<AnimalData, "hunger" | "happiness" | "sleep">,
-    delta: number,
-  ) => {
+  const boostStat = (statName: StatName) => {
     if (!animal) return;
-    const updated = {
-      ...animal,
-      [key]: Math.max(0, Math.min(maxStatValue, animal[key] + delta)),
-    };
-    saveAnimal(updated);
-    setAnimal(updated);
+    const boostedAnimal = boostAnimalStat(animal, statName);
+    const savedAnimal = saveAnimal(boostedAnimal);
+    setAnimal(savedAnimal);
   };
 
   if (!animal) return null;
@@ -46,7 +64,7 @@ export function AnimalPage() {
   return (
     <Page>
       <div className="flex flex-wrap justify-center gap-5">
-        <Animal {...animal} onStatChange={updateStat} />
+        <Animal {...animal} onBoostStat={boostStat} />
       </div>
     </Page>
   );

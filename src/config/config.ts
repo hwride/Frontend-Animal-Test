@@ -4,6 +4,7 @@ import { AnimalType, StatName } from "../types/AnimalData.ts";
 export type StatDecayType = "increase" | "reduce";
 
 export const maxStatValue = 100;
+export const statUpdateIntervalMs = 50;
 
 export const statConfig: Record<
   StatName,
@@ -37,9 +38,9 @@ export const animalsTypes: AnimalType[] = [
     label: "Poodle",
     imgSrc: "/src/poodle.svg",
     imgAlt: "A cartoon poodle",
-    decayHappinessRateMs: 1500,
-    decayHungerRateMs: 1000,
-    decaySleepRateMs: 2000,
+    decayHappinessRateMs: 100,
+    decayHungerRateMs: 200,
+    decaySleepRateMs: 300,
   },
 ];
 
