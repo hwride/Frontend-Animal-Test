@@ -6,6 +6,7 @@ import { saveAnimal } from "../utils/animal-store.ts";
 import { animalsTypes, statConfig } from "../config/config.ts";
 import { Button } from "../components/Button.tsx";
 import { Page } from "../components/Page.tsx";
+import { Heading } from "../components/Heading.tsx";
 
 export function AddAnimal() {
   const navigate = useNavigate();
@@ -40,34 +41,37 @@ export function AddAnimal() {
 
   return (
     <Page>
-      <h1>Add Animal</h1>
-      <form onSubmit={handleSubmit} className="w-full max-w-lg">
-        <div>
-          <label htmlFor="type">Type</label>
-          <select
-            id="type"
-            value={typeId}
-            onChange={(e) => setTypeId(e.target.value)}
-            className="block w-full appearance-none rounded border border-gray-200 bg-gray-200 px-4 py-3 pr-8 leading-tight text-gray-700 focus:border-gray-500 focus:bg-white focus:outline-none"
-          >
-            {animalsTypes.map((animal) => (
-              <option value={animal.typeId}>{animal.label}</option>
-            ))}
-          </select>
-        </div>
+      <Heading level={1} className="pb-4">
+        Add Animal
+      </Heading>
+      <form
+        onSubmit={handleSubmit}
+        className="grid w-full max-w-lg grid-cols-[auto_1fr] items-center gap-2 gap-x-4"
+      >
+        <label htmlFor="type">Type</label>
+        <select
+          id="type"
+          value={typeId}
+          onChange={(e) => setTypeId(e.target.value)}
+          className="block w-full appearance-none rounded border border-gray-200 bg-gray-200 px-4 py-3 pr-8 leading-tight text-gray-700 focus:border-gray-500 focus:bg-white focus:outline-none"
+        >
+          {animalsTypes.map((animal) => (
+            <option value={animal.typeId}>{animal.label}</option>
+          ))}
+        </select>
 
-        <div>
-          <label htmlFor="name">Name</label>
-          <input
-            id="name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            required
-            className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
-          />
-        </div>
+        <label htmlFor="name">Name</label>
+        <input
+          id="name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          required
+          className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
+        />
 
-        <Button type="submit">Add Animal</Button>
+        <Button type="submit" className="col-span-2">
+          Add Animal
+        </Button>
       </form>
     </Page>
   );

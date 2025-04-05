@@ -1,13 +1,16 @@
 import { loadAnimals } from "../utils/animal-store.ts";
 import { Anchor } from "../components/Anchor.tsx";
 import { Page } from "../components/Page.tsx";
+import { Heading } from "../components/Heading.tsx";
 
 export function Animals() {
   const animals = loadAnimals();
 
   return (
     <Page>
-      <h1 className="pb-4 text-center text-5xl text-green-800">Your Animals</h1>
+      <Heading level={1} className="pb-4">
+        Your Animals
+      </Heading>
       <ul className="flex flex-col gap-2 py-4">
         {animals.map((animal) => (
           <li key={animal.id} className="flex w-full">
