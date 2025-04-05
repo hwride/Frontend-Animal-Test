@@ -2,6 +2,7 @@ import { loadAnimals } from "../utils/animal-store.ts";
 import { Anchor } from "../components/Anchor.tsx";
 import { Page } from "../components/Page.tsx";
 import { Heading } from "../components/Heading.tsx";
+import { FormattedMessage } from "react-intl";
 
 export function Animals() {
   const animals = loadAnimals();
@@ -9,7 +10,10 @@ export function Animals() {
   return (
     <Page>
       <Heading level={1} className="pb-4">
-        Your Animals
+        <FormattedMessage
+          id="page-animals-heading"
+          defaultMessage="Your Animals"
+        />
       </Heading>
       <ul className="flex flex-col gap-2 py-4">
         {animals.map((animal) => (
@@ -22,7 +26,7 @@ export function Animals() {
               <div>{animal.name}</div>
               <img
                 src={animal.type.imgSrc}
-                alt={animal.type.imgAlt}
+                alt={animal.type.imgAltMessageId}
                 className="h-8 w-8"
               />
             </a>
@@ -30,7 +34,7 @@ export function Animals() {
         ))}
       </ul>
       <Anchor href="/add-animal" variant="button" className="justify-center">
-        Add Animal
+        <FormattedMessage id="add-animal-btn" defaultMessage="Add Animal" />
       </Anchor>
     </Page>
   );

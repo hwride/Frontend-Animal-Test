@@ -36,27 +36,27 @@ export const statConfig: Record<
 export const animalsTypes: AnimalType[] = [
   {
     typeId: "poodle",
-    label: "Poodle",
+    labelId: "animal-type-poodle",
     imgSrc: "/svg/poodle.svg",
-    imgAlt: "A cartoon poodle",
+    imgAltMessageId: "animal-type-poodle-img-alt",
     decayHappinessRateMs: 500,
     decayHungerRateMs: 750,
     decaySleepinessRateMs: 1000,
   },
   {
     typeId: "fox",
-    label: "Fox",
+    labelId: "animal-type-fox",
     imgSrc: "/svg/fox.svg",
-    imgAlt: "A cartoon fox",
+    imgAltMessageId: "animal-type-fox-img-alt",
     decayHappinessRateMs: 1000,
     decayHungerRateMs: 400,
     decaySleepinessRateMs: 100,
   },
   {
     typeId: "turtle",
-    label: "Turtle",
+    labelId: "animal-type-turtle",
     imgSrc: "/svg/turtle.svg",
-    imgAlt: "A cartoon turtle",
+    imgAltMessageId: "animal-type-turtle-img-alt",
     // Turtles are slow...
     decayHappinessRateMs: 2000,
     decayHungerRateMs: 1500,

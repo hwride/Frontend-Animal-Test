@@ -2,9 +2,9 @@ export type StatName = "hunger" | "happiness" | "sleepiness";
 
 export type AnimalType = {
   typeId: string;
-  label: string;
+  labelId: string;
   imgSrc: string;
-  imgAlt: string;
+  imgAltMessageId: string;
   decayHungerRateMs: number;
   decayHappinessRateMs: number;
   decaySleepinessRateMs: number;

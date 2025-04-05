@@ -7,6 +7,7 @@ import { animalsTypes, statConfig } from "../config/config.ts";
 import { Button } from "../components/Button.tsx";
 import { Page } from "../components/Page.tsx";
 import { Heading } from "../components/Heading.tsx";
+import { FormattedMessage } from "react-intl";
 
 export function AddAnimal() {
   const navigate = useNavigate();
@@ -42,13 +43,18 @@ export function AddAnimal() {
   return (
     <Page>
       <Heading level={1} className="pb-4">
-        Add Animal
+        <FormattedMessage
+          id="page-add-animalsheading"
+          defaultMessage="Add Animal"
+        />
       </Heading>
       <form
         onSubmit={handleSubmit}
         className="grid w-full max-w-lg grid-cols-[auto_1fr] items-center gap-2 gap-x-4"
       >
-        <label htmlFor="type">Type</label>
+        <label htmlFor="type">
+          <FormattedMessage id="animal-type" defaultMessage="Type" />
+        </label>
         <select
           id="type"
           value={typeId}
@@ -56,11 +62,18 @@ export function AddAnimal() {
           className="block w-full appearance-none rounded border border-gray-200 bg-gray-200 px-4 py-3 pr-8 leading-tight text-gray-700 focus:border-gray-500 focus:bg-white focus:outline-none"
         >
           {animalsTypes.map((animal) => (
-            <option value={animal.typeId}>{animal.label}</option>
+            <option value={animal.typeId}>
+              <FormattedMessage
+                id={animal.labelId}
+                defaultMessage={animal.labelId}
+              />
+            </option>
           ))}
         </select>
 
-        <label htmlFor="name">Name</label>
+        <label htmlFor="name">
+          <FormattedMessage id="animal-name" defaultMessage="Name" />
+        </label>
         <input
           id="name"
           value={name}
@@ -70,7 +83,7 @@ export function AddAnimal() {
         />
 
         <Button type="submit" className="col-span-2">
-          Add Animal
+          <FormattedMessage id="add-animal-btn" defaultMessage="Add Animal" />
         </Button>
       </form>
     </Page>

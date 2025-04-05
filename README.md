@@ -31,3 +31,4 @@ or Next.js (or many more).
 - Vitest and React Testing Library for unit tests
 - Prettier
 - ES Lint
+- React Intl for i18n

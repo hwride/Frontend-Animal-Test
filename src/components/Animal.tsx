@@ -8,19 +8,22 @@ import {
 } from "../config/config.ts";
 import { clsx } from "clsx";
 import { Heading } from "./Heading.tsx";
+import { FormattedMessage, useIntl } from "react-intl";
 
 type AnimalProps = AnimalData & {
   onBoostStat: (statName: StatName) => void;
 };
 
 export function Animal({
-  type: { label, imgSrc, imgAlt },
+  type: { labelId, imgSrc, imgAltMessageId },
   name,
   hunger,
   happiness,
   sleepiness,
   onBoostStat,
 }: AnimalProps) {
+  const intl = useIntl();
+
   return (
     <>
       <div className="mx-auto w-[350px] rounded-xl bg-white p-5 pt-0 text-center text-green-800">
@@ -30,29 +33,52 @@ export function Animal({
         <div className="mx-auto mb-5 w-fit">
           <img
             src={imgSrc}
-            alt={imgAlt}
+            alt={intl.formatMessage({
+              id: imgAltMessageId,
+              defaultMessage: "",
+            })}
             className="h-[150px] w-[150px] rounded-full object-cover"
           />
-          <h2 className="pb-4 text-center text-2xl text-green-800">{label}</h2>
+          <h2 className="pb-4 text-center text-2xl text-green-800">
+            <FormattedMessage id={labelId} defaultMessage={labelId} />
+          </h2>
         </div>
         <div className="mt-5 flex">
           <Stat
-            label="Hunger"
-            buttonLabel="Feed"
+            label={intl.formatMessage({
+              id: "stat-name-hunger",
+              defaultMessage: "Hunger",
+            })}
+            buttonLabel={intl.formatMessage({
+              id: "stat-name-hunger-boost-btn",
+              defaultMessage: "Feed",
+            })}
             value={hunger}
             decayType={statConfig.hunger.decayType}
             onClick={() => onBoostStat("hunger")}
           />
           <Stat
-            label="Happiness"
-            buttonLabel="Play"
+            label={intl.formatMessage({
+              id: "stat-name-happiness",
+              defaultMessage: "Happiness",
+            })}
+            buttonLabel={intl.formatMessage({
+              id: "stat-name-happiness-boost-btn",
+              defaultMessage: "Play",
+            })}
             value={happiness}
             decayType={statConfig.happiness.decayType}
             onClick={() => onBoostStat("happiness")}
           />
           <Stat
-            label="Sleepiness"
-            buttonLabel="Rest"
+            label={intl.formatMessage({
+              id: "stat-name-sleepiness",
+              defaultMessage: "Sleepiness",
+            })}
+            buttonLabel={intl.formatMessage({
+              id: "stat-name-sleepiness-boost-btn",
+              defaultMessage: "Rest",
+            })}
             value={sleepiness}
             decayType={statConfig.sleepiness.decayType}
             onClick={() => onBoostStat("sleepiness")}

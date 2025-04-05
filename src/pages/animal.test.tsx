@@ -6,6 +6,7 @@ import { mockAnimal } from "../test/util/mock-utils.ts";
 import { MemoryRouter, Route, Routes } from "react-router";
 import { StatName } from "../types/AnimalData.ts";
 import { userEvent, type UserEvent } from "@testing-library/user-event";
+import { IntlProvider } from "react-intl";
 
 vi.mock("../config/config.ts", async () => {
   const actual = await vi.importActual("../config/config");
@@ -17,21 +18,21 @@ vi.mock("../config/config.ts", async () => {
     animalsTypes: [
       {
         typeId: "test-animal",
-        label: "Test Animal",
+        labelId: "animal-type-test-animal",
         decayHungerRateMs: 500,
         decaySleepinessRateMs: 2000,
         decayHappinessRateMs: 1000,
         imgSrc: "/test-animal.svg",
-        imgAlt: "A test animal",
+        imgAltMessageId: "animal-type-test-animal-img-alt",
       },
       {
         typeId: "test-animal 2",
-        label: "Test Animal 2",
+        labelId: "animal-type-test-animal-2",
         decayHungerRateMs: 500,
         decaySleepinessRateMs: 500,
         decayHappinessRateMs: 500,
         imgSrc: "/test-animal2.svg",
-        imgAlt: "A test animal 2",
+        imgAltMessageId: "animal-type-test-animal-2-img-alt",
       },
     ],
     statConfig: {
@@ -73,13 +74,7 @@ test("it should render animal correctly initially", () => {
   });
   saveAnimal(animal);
 
-  render(
-    <MemoryRouter initialEntries={["/animal/1000"]}>
-      <Routes>
-        <Route path="/animal/:id" element={<AnimalPage />} />
-      </Routes>
-    </MemoryRouter>,
-  );
+  renderAnimalPage({ animalId: "1000" });
 
   expect(screen.getByText("Scruffy")).toBeInTheDocument(); // Check animal's name is there.
   expect(screen.getByText("Test Animal")).toBeInTheDocument(); // Check animal's type is there.
@@ -101,13 +96,7 @@ test("it should increase stats when clicking on stat buttons", async () => {
   });
   saveAnimal(animal);
 
-  render(
-    <MemoryRouter initialEntries={["/animal/1000"]}>
-      <Routes>
-        <Route path="/animal/:id" element={<AnimalPage />} />
-      </Routes>
-    </MemoryRouter>,
-  );
+  renderAnimalPage({ animalId: "1000" });
 
   // Check stats have expected initial values.
   assertStatValue("hunger", 60);
@@ -145,13 +134,7 @@ test("it should decay stats live over time", async () => {
   });
   saveAnimal(animal);
 
-  render(
-    <MemoryRouter initialEntries={["/animal/1000"]}>
-      <Routes>
-        <Route path="/animal/:id" element={<AnimalPage />} />
-      </Routes>
-    </MemoryRouter>,
-  );
+  renderAnimalPage({ animalId: "1000" });
 
   // Check stats have expected initial value.
   assertStatValue("hunger", 50);
@@ -183,12 +166,12 @@ test("should allow different types of animals with different decay rates", async
     name: "Jane",
     type: {
       typeId: "test-animal 2",
-      label: "Test Animal 2",
+      labelId: "animal-type-test-animal-2",
       decayHungerRateMs: 500,
       decaySleepinessRateMs: 500,
       decayHappinessRateMs: 500,
       imgSrc: "/test-animal2.svg",
-      imgAlt: "A test animal 2",
+      imgAltMessageId: "animal-type-test-animal-2-img-alt",
     },
     hunger: 50,
     sleepiness: 50,
@@ -196,13 +179,7 @@ test("should allow different types of animals with different decay rates", async
   });
   saveAnimal(animal);
 
-  render(
-    <MemoryRouter initialEntries={["/animal/2000"]}>
-      <Routes>
-        <Route path="/animal/:id" element={<AnimalPage />} />
-      </Routes>
-    </MemoryRouter>,
-  );
+  renderAnimalPage({ animalId: "2000" });
 
   expect(screen.getByText("Jane")).toBeInTheDocument(); // Check animal's name is there.
   expect(screen.getByText("Test Animal 2")).toBeInTheDocument(); // Check animal's type is there.
@@ -220,6 +197,27 @@ test("should allow different types of animals with different decay rates", async
   assertStatValue("sleepiness", 60);
   assertStatValue("happiness", 40);
 });
+
+function renderAnimalPage({ animalId }: { animalId: string }) {
+  render(
+    <IntlProvider
+      messages={{
+        "animal-type-test-animal": "Test Animal",
+        "animal-type-test-animal-img-alt": "A cartoon test animal",
+        "animal-type-test-animal-2": "Test Animal 2",
+        "animal-type-test-animal-2-img-alt": "A cartoon test animal 2",
+      }}
+      locale="en"
+      defaultLocale="en"
+    >
+      <MemoryRouter initialEntries={[`/animal/${animalId}`]}>
+        <Routes>
+          <Route path="/animal/:id" element={<AnimalPage />} />
+        </Routes>
+      </MemoryRouter>
+    </IntlProvider>,
+  );
+}
 
 function assertStatValue(statName: StatName, expectedValue: number) {
   const hungerStat = getStatEl(statName);
