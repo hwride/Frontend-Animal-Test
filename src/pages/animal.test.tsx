@@ -24,6 +24,15 @@ vi.mock("../config/config.ts", async () => {
         imgSrc: "/test-animal.svg",
         imgAlt: "A test animal",
       },
+      {
+        typeId: "test-animal 2",
+        label: "Test Animal 2",
+        decayHungerRateMs: 500,
+        decaySleepinessRateMs: 500,
+        decayHappinessRateMs: 500,
+        imgSrc: "/test-animal2.svg",
+        imgAlt: "A test animal 2",
+      },
     ],
     statConfig: {
       happiness: {
@@ -56,7 +65,7 @@ afterEach(() => {
 
 test("it should render animal correctly initially", () => {
   const animal = mockAnimal({
-    id: "1234",
+    id: "1000",
     name: "Scruffy",
     hunger: 60,
     sleepiness: 50,
@@ -65,15 +74,15 @@ test("it should render animal correctly initially", () => {
   saveAnimal(animal);
 
   render(
-    <MemoryRouter initialEntries={["/animal/1234"]}>
+    <MemoryRouter initialEntries={["/animal/1000"]}>
       <Routes>
         <Route path="/animal/:id" element={<AnimalPage />} />
       </Routes>
     </MemoryRouter>,
   );
 
-  // Check the animal's name is there.
-  expect(screen.getByText("Scruffy")).toBeInTheDocument();
+  expect(screen.getByText("Scruffy")).toBeInTheDocument(); // Check animal's name is there.
+  expect(screen.getByText("Test Animal")).toBeInTheDocument(); // Check animal's type is there.
 
   // Check stats have expected initial value.
   assertStatValue("hunger", 60);
@@ -84,7 +93,7 @@ test("it should render animal correctly initially", () => {
 test("it should increase stats when clicking on stat buttons", async () => {
   const user = userEvent.setup({ advanceTimers: vi.advanceTimersByTime });
   const animal = mockAnimal({
-    id: "1234",
+    id: "1000",
     name: "Scruffy",
     hunger: 60,
     sleepiness: 50,
@@ -93,7 +102,7 @@ test("it should increase stats when clicking on stat buttons", async () => {
   saveAnimal(animal);
 
   render(
-    <MemoryRouter initialEntries={["/animal/1234"]}>
+    <MemoryRouter initialEntries={["/animal/1000"]}>
       <Routes>
         <Route path="/animal/:id" element={<AnimalPage />} />
       </Routes>
@@ -128,7 +137,7 @@ test("it should increase stats when clicking on stat buttons", async () => {
 
 test("it should decay stats live over time", async () => {
   const animal = mockAnimal({
-    id: "1234",
+    id: "1000",
     name: "Scruffy",
     hunger: 50,
     sleepiness: 50,
@@ -137,7 +146,7 @@ test("it should decay stats live over time", async () => {
   saveAnimal(animal);
 
   render(
-    <MemoryRouter initialEntries={["/animal/1234"]}>
+    <MemoryRouter initialEntries={["/animal/1000"]}>
       <Routes>
         <Route path="/animal/:id" element={<AnimalPage />} />
       </Routes>
@@ -166,6 +175,50 @@ test("it should decay stats live over time", async () => {
   assertStatValue("hunger", 80);
   assertStatValue("sleepiness", 57.5);
   assertStatValue("happiness", 35);
+});
+
+test("should allow different types of animals with different decay rates", async () => {
+  const animal = mockAnimal({
+    id: "2000",
+    name: "Jane",
+    type: {
+      typeId: "test-animal 2",
+      label: "Test Animal 2",
+      decayHungerRateMs: 500,
+      decaySleepinessRateMs: 500,
+      decayHappinessRateMs: 500,
+      imgSrc: "/test-animal2.svg",
+      imgAlt: "A test animal 2",
+    },
+    hunger: 50,
+    sleepiness: 50,
+    happiness: 50,
+  });
+  saveAnimal(animal);
+
+  render(
+    <MemoryRouter initialEntries={["/animal/2000"]}>
+      <Routes>
+        <Route path="/animal/:id" element={<AnimalPage />} />
+      </Routes>
+    </MemoryRouter>,
+  );
+
+  expect(screen.getByText("Jane")).toBeInTheDocument(); // Check animal's name is there.
+  expect(screen.getByText("Test Animal 2")).toBeInTheDocument(); // Check animal's type is there.
+
+  // Check stats have expected initial value.
+  assertStatValue("hunger", 50);
+  assertStatValue("sleepiness", 50);
+  assertStatValue("happiness", 50);
+
+  // Test these stats decay at a different rate to test animal 1.
+  await act(async () => {
+    vi.advanceTimersByTime(5000);
+  });
+  assertStatValue("hunger", 60);
+  assertStatValue("sleepiness", 60);
+  assertStatValue("happiness", 40);
 });
 
 function assertStatValue(statName: StatName, expectedValue: number) {
