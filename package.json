@@ -9,6 +9,8 @@
     "lint": "eslint .",
     "types": "tsc --b",
     "test": "vitest",
+    "test:ci": "vitest --run",
+
     "preview": "vite preview",
     "prettier:write": "prettier --write ."
   },

@@ -23,6 +23,9 @@ or Next.js (or many more).
 1. Clone the project
 2. Run `bun install`
 
+## CI
+Unit tests, type checking and lint run on CI builds.
+
 ## Technologies used
 - React
 - Vite
