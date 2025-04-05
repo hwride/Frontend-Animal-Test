@@ -3,6 +3,7 @@ import { AnimalType, StatName } from "../types/AnimalData.ts";
 /** Whether stat decay will reduce or increase the stat value */
 export type StatDecayType = "increase" | "reduce";
 
+export const minStatValue = 0;
 export const maxStatValue = 100;
 export const statUpdateIntervalMs = 50;
 

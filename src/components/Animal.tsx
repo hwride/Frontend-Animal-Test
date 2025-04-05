@@ -1,6 +1,11 @@
 import { AnimalData, StatName } from "../types/AnimalData.ts";
 import { Button } from "./Button.tsx";
-import { statConfig, StatDecayType } from "../config/config.ts";
+import {
+  maxStatValue,
+  minStatValue,
+  statConfig,
+  StatDecayType,
+} from "../config/config.ts";
 import { clsx } from "clsx";
 
 type AnimalProps = AnimalData & {
@@ -69,10 +74,14 @@ function Stat({
   decayType: StatDecayType;
 }) {
   return (
-    <div className="mb-5 flex-1 p-2.5">
+    <div data-testid="stat" className="mb-5 flex-1 p-2.5">
       <strong>{label}</strong>
       <div className="mt-2.5 h-5 w-full overflow-hidden rounded bg-gray-300">
         <div
+          role="progressbar"
+          aria-valuenow={value}
+          aria-valuemin={minStatValue}
+          aria-valuemax={maxStatValue}
           className={clsx("h-full transition-all duration-300 ease-in-out", {
             "bg-green-500": decayType === "reduce",
             "bg-red-500": decayType === "increase",

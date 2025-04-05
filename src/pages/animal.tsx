@@ -36,11 +36,6 @@ export function AnimalPage() {
               if (!animal) return animal;
               const updatedAnimal = decayAnimalStats(animal);
               const savedAnimal = saveAnimal(updatedAnimal);
-              console.log("After timer", {
-                beforeUpdate: animal,
-                afterUpdate: updatedAnimal,
-                afterSave: savedAnimal,
-              });
               return savedAnimal;
             });
             scheduleDecay();

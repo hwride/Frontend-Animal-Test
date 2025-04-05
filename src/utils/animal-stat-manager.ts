@@ -1,5 +1,10 @@
 import { AnimalData, StatName } from "../types/AnimalData.ts";
-import { StatDecayType, maxStatValue, statConfig } from "../config/config.ts";
+import {
+  StatDecayType,
+  maxStatValue,
+  statConfig,
+  minStatValue,
+} from "../config/config.ts";
 
 export function boostAnimalStat(
   animalData: AnimalData,
@@ -8,7 +13,7 @@ export function boostAnimalStat(
   return {
     ...animalData,
     [statName]: Math.max(
-      0,
+      minStatValue,
       Math.min(
         maxStatValue,
         animalData[statName] + statConfig[statName].boostValue,
@@ -70,7 +75,7 @@ function updateStatDecay({
   // Ensure stats can't go below min or above max as appropriate.
   const statDecay = msSinceLastUpdate / statDecayRate;
   if (decayType === "reduce") {
-    return Math.max(0, currentStat - statDecay);
+    return Math.max(minStatValue, currentStat - statDecay);
   } else {
     return Math.min(maxStatValue, currentStat + statDecay);
   }
