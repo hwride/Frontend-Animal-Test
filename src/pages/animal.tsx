@@ -26,11 +26,6 @@ export function AnimalPage() {
         // Update stat decay on the animal after load.
         const updatedAnimal = decayAnimalStats(animal);
         const savedAnimal = saveAnimal(updatedAnimal);
-        console.log("On load", {
-          beforeUpdate: animal,
-          afterUpdate: updatedAnimal,
-          afterSave: savedAnimal,
-        });
         setAnimal(savedAnimal);
 
         // Setup timer to update stat decay live.

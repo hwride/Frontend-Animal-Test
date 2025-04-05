@@ -1,6 +1,6 @@
-import { vi, expect, test, beforeEach, afterEach } from "vitest";
-import { AnimalData } from "../types/AnimalData.ts";
+import { afterEach, beforeEach, expect, test, vi } from "vitest";
 import { boostAnimalStat, decayAnimalStats } from "./animal-stat-manager.ts";
+import { mockAnimal } from "../test/util/mock-utils.ts";
 
 beforeEach(() => {
   vi.useFakeTimers();
@@ -189,24 +189,3 @@ test("decayAnimalStats - happiness should decay even faster when hungry and slee
     happiness: 46, // Note happiness decreased by 4x because the animal is hungry and sleepy.
   });
 });
-
-function mockAnimal(overrides?: Partial<AnimalData>): AnimalData {
-  return {
-    id: "1234",
-    name: "John",
-    type: {
-      typeId: "test-animal",
-      label: "Test Animal",
-      decayHungerRateMs: 500,
-      decaySleepinessRateMs: 2000,
-      decayHappinessRateMs: 1000,
-      imgSrc: "/test-animal.svg",
-      imgAlt: "A test animal",
-    },
-    lastUpdated: new Date(),
-    hunger: 50,
-    sleepiness: 50,
-    happiness: 50,
-    ...overrides,
-  };
-}
