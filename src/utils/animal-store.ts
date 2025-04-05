@@ -42,17 +42,19 @@ export function saveAnimal(animal: AnimalData): AnimalData {
   const animals = loadAnimals();
   const existingIndex = animals.findIndex((a) => a.id === animal.id);
 
+  const animalFinal = {
+    ...animal,
+    lastUpdated: new Date(),
+  };
   if (existingIndex !== -1) {
-    animals[existingIndex] = animal;
+    animals[existingIndex] = animalFinal;
   } else {
-    animals.push(animal);
+    animals.push(animalFinal);
   }
 
   // Convert animals from app format to format we put in localStorage.
-  const lastUpdated = new Date();
   const animalsForStore: AnimalStoreData[] = animals.map((animal) => {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { type, lastUpdated: _, ...animalFromStoreWithoutType } = animal;
+    const { type, lastUpdated, ...animalFromStoreWithoutType } = animal;
     return {
       ...animalFromStoreWithoutType,
       typeId: type.typeId,
@@ -62,8 +64,5 @@ export function saveAnimal(animal: AnimalData): AnimalData {
 
   localStorage.setItem(storageKey, JSON.stringify(animalsForStore));
 
-  return {
-    ...animal,
-    lastUpdated,
-  };
+  return animalFinal;
 }
