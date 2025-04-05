@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, expect, test, vi } from "vitest";
-import { render, screen, within } from "@testing-library/react";
+import { cleanup, render, screen, within, act } from "@testing-library/react";
 import { AnimalPage } from "./animal.tsx";
 import { saveAnimal } from "../utils/animal-store.ts";
 import { mockAnimal } from "../test/util/mock-utils.ts";
@@ -51,6 +51,7 @@ beforeEach(() => {
 
 afterEach(() => {
   vi.useRealTimers();
+  cleanup();
 });
 
 test("it should render animal correctly initially", () => {
@@ -123,6 +124,48 @@ test("it should increase stats when clicking on stat buttons", async () => {
   assertStatValue("hunger", 45);
   assertStatValue("sleepiness", 40);
   assertStatValue("happiness", 75);
+});
+
+test("it should decay stats live over time", async () => {
+  const animal = mockAnimal({
+    id: "1234",
+    name: "Scruffy",
+    hunger: 50,
+    sleepiness: 50,
+    happiness: 50,
+  });
+  saveAnimal(animal);
+
+  render(
+    <MemoryRouter initialEntries={["/animal/1234"]}>
+      <Routes>
+        <Route path="/animal/:id" element={<AnimalPage />} />
+      </Routes>
+    </MemoryRouter>,
+  );
+
+  // Check stats have expected initial value.
+  assertStatValue("hunger", 50);
+  assertStatValue("sleepiness", 50);
+  assertStatValue("happiness", 50);
+
+  // Advance timers past the stat update interval.
+  await act(async () => {
+    vi.advanceTimersByTime(5000);
+  });
+
+  // Check stats have decayed based on decay rate.
+  assertStatValue("hunger", 60);
+  assertStatValue("sleepiness", 52.5);
+  assertStatValue("happiness", 45);
+
+  // Check again after longer.
+  await act(async () => {
+    vi.advanceTimersByTime(10000);
+  });
+  assertStatValue("hunger", 80);
+  assertStatValue("sleepiness", 57.5);
+  assertStatValue("happiness", 35);
 });
 
 function assertStatValue(statName: StatName, expectedValue: number) {
