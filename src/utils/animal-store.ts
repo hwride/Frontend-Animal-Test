@@ -51,6 +51,7 @@ export function saveAnimal(animal: AnimalData): AnimalData {
   // Convert animals from app format to format we put in localStorage.
   const lastUpdated = new Date();
   const animalsForStore: AnimalStoreData[] = animals.map((animal) => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { type, lastUpdated: _, ...animalFromStoreWithoutType } = animal;
     return {
       ...animalFromStoreWithoutType,
