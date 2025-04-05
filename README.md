@@ -1,42 +1,33 @@
-# Animals Sample App 🐩
+# Animal Keeper 🐩
 
 > _What could be more fun than having a pet? Making your own!_
 
-## What Is This?
+This is a project which allows you keep animals. They have stats which decay over time and they need to kept happy.
 
-Your job is to create your own digital pet platform using this codebase as a starting point - how you continue is up to you!
+## Technical notes
 
-## Getting Started
+This is an SPA which stores data in `localStorage`. This keeps the app fast, and for a simple game is enough.
+
+You could instead design it with a backend and authentication, database, etc if you want to let users load their pets from anywhere and enforce decay and boost rules on the server.
+
+Currently, decay is only run inside the view animal page, rather than any time an animal is loaded or at the root of the whole app. 
+Depending on evolving requirements you could make adjustments here. If still wanting to use minimal libraries you could sync up `localStorage`
+with `useSyncExternalStore` and provide a hook which could be used anywhere. 
+
+I used minimal libraries as recommended by the spec, but in a real application I'd likely use some kind of state manager such as Zustand or Redux, 
+or TanStack Query if adding a server implementation. I'd also consider a framework such as TanStack Start (though this is still new), Remix (now React Router 7) 
+or Next.js (or many more).
+
+## Development setup
 
 1. Clone the project
 2. Run `bun install`
-3. Write some magic to make your pets come alive!
-4. Push up to a brand new repo and send us a link
 
-## The Brief
-
-- Users should be able to name animals
-- Users should be able to have multiple animals of different types
-- Playing with animals makes them happy
-- Feeding animals makes them less hungry
-- Resting animals makes them less sleepy
-- Animals start "neutral" on all metrics
-- Happiness should decrease over time
-- Hunger should increase over time
-- Sleepiness should increase over time
-- Happiness should decrease faster when sleep or hunger is full
-- Each animal type should have metrics which increase/decrease at different rates
-
-## Judging Criteria
-
-- All points in the brief have been followed and work as described
-- The main functionality and business logic should be tested. Each bullet point in the brief should be tested explicitly
-- Use of 3rd party libraries is permitted but should be kept to a minimum - we would like to see what you are capable of!
-- We also look at project structure, code clarity, type quality, use of bad practices and bugs.
-- Solutions forking or PRing back to the main repo will be disqualified - please upload to a new repo
-
----
-
-Any questions, drop us a message!
-
-Good Luck 🚀
+## Technologies used
+- React
+- Vite
+- TypeScript
+- Tailwind for CSS
+- Vitest and React Testing Library for unit tests
+- Prettier
+- ES Lint
