@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites name="vitest tests" tests="13" failures="0" errors="0" time="0.3527608">
+    <testsuite name="src/pages/animal.test.tsx" timestamp="2025-04-05T09:03:28.240Z" hostname="LAPTOP-IQT2LNA7" tests="4" failures="0" errors="0" skipped="0" time="0.3424176">
+        <testcase classname="src/pages/animal.test.tsx" name="it should render animal correctly initially" time="0.1047201">
+        </testcase>
+        <testcase classname="src/pages/animal.test.tsx" name="it should increase stats when clicking on stat buttons" time="0.1860254">
+        </testcase>
+        <testcase classname="src/pages/animal.test.tsx" name="it should decay stats live over time" time="0.0292648">
+        </testcase>
+        <testcase classname="src/pages/animal.test.tsx" name="should allow different types of animals with different decay rates" time="0.0214002">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/utils/animal-stat-manager.test.ts" timestamp="2025-04-05T09:03:28.254Z" hostname="LAPTOP-IQT2LNA7" tests="9" failures="0" errors="0" skipped="0" time="0.0103432">
+        <testcase classname="src/utils/animal-stat-manager.test.ts" name="boostAnimalStat should update stat value according to config - hunger" time="0.0037513">
+        </testcase>
+        <testcase classname="src/utils/animal-stat-manager.test.ts" name="boostAnimalStat should update stat value according to config - sleepiness" time="0.0007852">
+        </testcase>
+        <testcase classname="src/utils/animal-stat-manager.test.ts" name="boostAnimalStat should update stat value according to config - happiness" time="0.0005046">
+        </testcase>
+        <testcase classname="src/utils/animal-stat-manager.test.ts" name="boostAnimalStat should not go above mix or below max" time="0.0006891">
+        </testcase>
+        <testcase classname="src/utils/animal-stat-manager.test.ts" name="decayAnimalStats should decay stat values according to config" time="0.0007645">
+        </testcase>
+        <testcase classname="src/utils/animal-stat-manager.test.ts" name="decayAnimalStats should not go above mix or below max" time="0.0005209">
+        </testcase>
+        <testcase classname="src/utils/animal-stat-manager.test.ts" name="decayAnimalStats - happiness should decay faster when hungry" time="0.0004125">
+        </testcase>
+        <testcase classname="src/utils/animal-stat-manager.test.ts" name="decayAnimalStats - happiness should decay faster when sleepy" time="0.0004871">
+        </testcase>
+        <testcase classname="src/utils/animal-stat-manager.test.ts" name="decayAnimalStats - happiness should decay even faster when hungry and sleepy" time="0.0006203">
+        </testcase>
+    </testsuite>
+</testsuites>

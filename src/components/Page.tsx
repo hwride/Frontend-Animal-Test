@@ -3,11 +3,11 @@ import { ReactNode } from "react";
 
 export function Page({ children }: { children: ReactNode }) {
   return (
-    <div className="flex min-h-screen flex-col bg-gray-50 text-gray-900">
-      <header className="border-b bg-white shadow-sm">
+    <div className="flex min-h-screen flex-col text-gray-900">
+      <header className="">
         <nav
           aria-label="Main navigation"
-          className="mx-auto flex max-w-4xl gap-4 px-4 py-3"
+          className="mx-auto flex max-w-4xl gap-4 px-8 py-4"
         >
           <NavLink
             to="/"
@@ -15,8 +15,8 @@ export function Page({ children }: { children: ReactNode }) {
             className={({ isActive }) =>
               `rounded px-3 py-1.5 ${
                 isActive
-                  ? "bg-blue-600 text-white"
-                  : "text-blue-600 hover:bg-blue-100"
+                  ? "bg-green-700 text-white"
+                  : "text-green-700 hover:bg-green-100"
               }`
             }
           >
@@ -28,8 +28,8 @@ export function Page({ children }: { children: ReactNode }) {
             className={({ isActive }) =>
               `rounded px-3 py-1.5 ${
                 isActive
-                  ? "bg-blue-600 text-white"
-                  : "text-blue-600 hover:bg-blue-100"
+                  ? "bg-green-700 text-white"
+                  : "text-green-700 hover:bg-green-100"
               }`
             }
           >
@@ -38,7 +38,10 @@ export function Page({ children }: { children: ReactNode }) {
         </nav>
       </header>
 
-      <main role="main" className="mx-auto max-w-4xl flex-1 px-4 py-6">
+      <main
+        role="main"
+        className="mx-auto w-full max-w-4xl flex-1 px-8 py-4 sm:w-lg"
+      >
         {children}
       </main>
     </div>
