@@ -17,7 +17,7 @@ export function boostAnimalStat(
   };
 }
 
-export function updateAnimalDecay(animal: AnimalData): AnimalData {
+export function decayAnimalStats(animal: AnimalData): AnimalData {
   const currentTime = new Date();
   const msSinceLastUpdate =
     currentTime.getTime() - animal.lastUpdated.getTime();
@@ -43,7 +43,7 @@ export function updateAnimalDecay(animal: AnimalData): AnimalData {
     }),
     sleepiness: updateStatDecay({
       currentStat: animal.sleepiness,
-      statDecayRate: animal.type.decaySleepRateMs,
+      statDecayRate: animal.type.decaySleepinessRateMs,
       decayType: statConfig.sleepiness.decayType,
       msSinceLastUpdate,
     }),

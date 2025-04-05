@@ -6,7 +6,7 @@ import { AnimalData, StatName } from "../types/AnimalData.ts";
 import { Page } from "../components/Page.tsx";
 import {
   boostAnimalStat,
-  updateAnimalDecay,
+  decayAnimalStats,
 } from "../utils/animal-stat-manager.ts";
 import { statUpdateIntervalMs } from "../config/config.ts";
 
@@ -24,7 +24,7 @@ export function AnimalPage() {
         navigate("/");
       } else {
         // Update stat decay on the animal after load.
-        const updatedAnimal = updateAnimalDecay(animal);
+        const updatedAnimal = decayAnimalStats(animal);
         const savedAnimal = saveAnimal(updatedAnimal);
         console.log("On load", {
           beforeUpdate: animal,
@@ -39,7 +39,7 @@ export function AnimalPage() {
           timeoutId = setTimeout(() => {
             setAnimal((animal) => {
               if (!animal) return animal;
-              const updatedAnimal = updateAnimalDecay(animal);
+              const updatedAnimal = decayAnimalStats(animal);
               const savedAnimal = saveAnimal(updatedAnimal);
               console.log("After timer", {
                 beforeUpdate: animal,

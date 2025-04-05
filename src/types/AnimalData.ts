@@ -7,7 +7,7 @@ export type AnimalType = {
   imgAlt: string;
   decayHungerRateMs: number;
   decayHappinessRateMs: number;
-  decaySleepRateMs: number;
+  decaySleepinessRateMs: number;
 };
 
 export type AnimalData = {

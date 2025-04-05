@@ -40,7 +40,7 @@ export const animalsTypes: AnimalType[] = [
     imgAlt: "A cartoon poodle",
     decayHappinessRateMs: 500,
     decayHungerRateMs: 750,
-    decaySleepRateMs: 1000,
+    decaySleepinessRateMs: 1000,
   },
   {
     typeId: "fox",
@@ -49,7 +49,7 @@ export const animalsTypes: AnimalType[] = [
     imgAlt: "A cartoon fox",
     decayHappinessRateMs: 1000,
     decayHungerRateMs: 400,
-    decaySleepRateMs: 100,
+    decaySleepinessRateMs: 100,
   },
   {
     typeId: "turtle",
@@ -59,7 +59,7 @@ export const animalsTypes: AnimalType[] = [
     // Turtles are slow...
     decayHappinessRateMs: 2000,
     decayHungerRateMs: 1500,
-    decaySleepRateMs: 3000,
+    decaySleepinessRateMs: 3000,
   },
 ];
 
