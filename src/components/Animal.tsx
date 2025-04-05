@@ -7,6 +7,7 @@ import {
   StatDecayType,
 } from "../config/config.ts";
 import { clsx } from "clsx";
+import { Heading } from "./Heading.tsx";
 
 type AnimalProps = AnimalData & {
   onBoostStat: (statName: StatName) => void;
@@ -22,15 +23,17 @@ export function Animal({
 }: AnimalProps) {
   return (
     <>
-      <div className="mx-auto my-5 w-[350px] rounded border border-gray-300 bg-gray-100 p-5 text-center text-blue-500">
-        <h1>{name}</h1>
+      <div className="mx-auto w-[350px] rounded-xl bg-white p-5 pt-0 text-center text-green-800">
+        <Heading level={1} className="pb-4">
+          {name}
+        </Heading>
         <div className="mx-auto mb-5 w-fit">
           <img
             src={imgSrc}
             alt={imgAlt}
             className="h-[150px] w-[150px] rounded-full object-cover"
           />
-          <h2>{label}</h2>
+          <h2 className="pb-4 text-center text-2xl text-green-800">{label}</h2>
         </div>
         <div className="mt-5 flex">
           <Stat
